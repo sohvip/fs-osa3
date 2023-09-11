@@ -1,5 +1,5 @@
 const express = require('express')
-const fetch = require('node-fetch')
+//const fetch = require('node-fetch')
 const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
@@ -54,9 +54,9 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.get('/info', async (request, response) => {
-    const getPersons = await fetch('http://localhost:3001/api/persons')
+    /*const getPersons = await fetch('http://localhost:3001/api/persons')
     const personsData = await getPersons.json()
-    const amount = personsData.length
+    const amount = personsData.length*/
     const currentDate = new Date()
     const dateOptions = {
         weekday: 'short',
@@ -69,7 +69,7 @@ app.get('/info', async (request, response) => {
         timeZoneName: 'long'
     }
     const dateFormatted = new Intl.DateTimeFormat('en-GB', dateOptions).format(currentDate)
-    response.send(`<p>Phonebook has info for ${amount} people</p>${dateFormatted}<p>`)
+    response.send(`<p>Phonebook has info for ${persons.length} people</p>${dateFormatted}<p>`)
 })
 
 app.post('/api/persons', (request, response) => {
