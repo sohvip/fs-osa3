@@ -22,6 +22,7 @@
   "homepage": "https://github.com/sohvip/fs-osa3#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.5.1",
     "morgan": "^1.10.0"
