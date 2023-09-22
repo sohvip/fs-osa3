@@ -22,31 +22,31 @@ app.use(express.static('build'))
 app.use(cors())
 
 morgan.token('person', (request) => {
-    if (request.method === 'POST') {
-        return JSON.stringify(request.body)
-    }
+  if (request.method === 'POST') {
+    return JSON.stringify(request.body)
+  }
 })
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :person'))
 
 // let persons = [
-//   { 
-//     "name": "Arto Hellas", 
+//   {
+//     "name": "Arto Hellas",
 //     "number": "040-123456",
 //     "id": 1
 //   },
-//   { 
-//     "name": "Ada Lovelace", 
+//   {
+//     "name": "Ada Lovelace",
 //     "number": "39-44-5323523",
 //     "id": 2
 //   },
-//   { 
-//     "name": "Dan Abramov", 
+//   {
+//     "name": "Dan Abramov",
 //     "number": "12-43-234345",
 //     "id": 3
 //   },
-//   { 
-//     "name": "Mary Poppendieck", 
+//   {
+//     "name": "Mary Poppendieck",
 //     "number": "39-23-6423122",
 //     "id": 4
 //   }
@@ -62,26 +62,26 @@ app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id).then(person => {
     response.json(person)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.get('/info', async (request, response) => {
-    const currentDate = new Date()
-    const dateOptions = {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'long'
-    }
-    const dateFormatted = new Intl.DateTimeFormat('en-GB', dateOptions).format(currentDate)
-    Person.countDocuments({})
-      .then(count => {
-        response.send(`<p>Phonebook has info for ${count} people</p>${dateFormatted}<p>`)
-      })
+  const currentDate = new Date()
+  const dateOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'long'
+  }
+  const dateFormatted = new Intl.DateTimeFormat('en-GB', dateOptions).format(currentDate)
+  Person.countDocuments({})
+    .then(count => {
+      response.send(`<p>Phonebook has info for ${count} people</p>${dateFormatted}<p>`)
+    })
 })
 
 
@@ -89,8 +89,8 @@ app.post('/api/persons', (request, response, next) => {
   const body = request.body
   console.log(body)
   if (!body.name) {
-    return response.status(400).json({ 
-      error: 'content missing' 
+    return response.status(400).json({
+      error: 'content missing'
     })
   }
 
@@ -108,7 +108,7 @@ app.post('/api/persons', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
